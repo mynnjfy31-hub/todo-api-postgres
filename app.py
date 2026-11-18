@@ -4,7 +4,9 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost/todo_db2'
+import os
+# ... (بقیه import ها)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://postgres:1234@localhost/todo_db2').replace("postgres://", "postgresql://")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'super-secret-key' # کلید مخفی برای امضای توکن
 
